@@ -4,6 +4,7 @@
   "description": "Homivy — MERN e-commerce store (backend: Express/MongoDB, frontend: React/Vite)",
   "private": true,
   "scripts": {
+    "predev": "pgrep mongod >/dev/null || /usr/local/mongodb/bin/mongod --dbpath /usr/local/var/mongodb --logpath /tmp/mongodb-homivy.log --fork",
     "dev": "concurrently -n api,web -c green,cyan \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
     "dev:backend": "npm run dev --prefix backend",
     "dev:frontend": "npm run dev --prefix frontend",
