@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homivy — Home Essentials for a Cleaner, Beautiful Home</title>
+  <meta name="description" content="Homivy is a home essentials store that helps you create a cleaner, more organized, and beautiful home. Shop washroom, kitchen, decor and household essentials.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' fill='%231d4034'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%23c9f24f'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header id="header" class="site-header"></header>
+<div id="mobileMenu" class="mobile-menu"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <div data-reveal="left">
+      <span class="hero-eyebrow"><span class="spark">✦</span> Home essentials, reimagined for 2026</span>
+      <h1>Your home,<br>but <span class="accent">effortlessly</span> beautiful.</h1>
+      <p class="lede">Homivy helps you create a cleaner, more organized, and beautiful home — with thoughtfully chosen essentials for every room, from washroom to kitchen.</p>
+      <div class="hero-ctas">
+        <a href="shop.html" class="btn btn-primary">Shop the collection <span class="arr">→</span></a>
+        <a href="#categories" class="btn btn-ghost">Explore rooms</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>20+</b><span>Curated essentials</span></div>
+        <div class="stat"><b>4.9★</b><span>Customer rating</span></div>
+        <div class="stat"><b>48h</b><span>Fast dispatch</span></div>
+      </div>
+    </div>
+    <div class="hero-visual" data-reveal="right" id="heroVisual"></div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- ============ CATEGORIES ============ -->
+<section id="categories">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="kicker">Shop by room</span>
+        <h2>Every corner,<br>covered.</h2>
+      </div>
+      <p>From spa-fresh washrooms to kitchens that work as hard as you do — find exactly what your space needs.</p>
+    </div>
+    <div class="bento stagger" id="categoryGrid"></div>
+  </div>
+</section>
+
+<!-- ============ BESTSELLERS ============ -->
+<section id="bestsellers" style="padding-top: 24px;">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="kicker">Bestsellers</span>
+        <h2>Loved by<br>thousands of homes.</h2>
+      </div>
+      <a href="shop.html" class="btn btn-ghost btn-sm">View all products <span class="arr">→</span></a>
+    </div>
+    <div class="product-grid stagger" id="featuredGrid"></div>
+  </div>
+</section>
+
+<!-- ============ VALUES ============ -->
+<section id="about" style="padding-top: 24px;">
+  <div class="wrap">
+    <div class="values" data-reveal>
+      <h2>Why homes choose <em>Homivy</em></h2>
+      <div class="values-grid">
+        <div class="value-item">
+          <span class="num">01</span>
+          <h3>Curated, not cluttered</h3>
+          <p>Every product is hand-picked to solve a real everyday problem — no filler, no gimmicks.</p>
+        </div>
+        <div class="value-item">
+          <span class="num">02</span>
+          <h3>Quality you can feel</h3>
+          <p>Durable materials and smart design, tested for daily life in real homes.</p>
+        </div>
+        <div class="value-item">
+          <span class="num">03</span>
+          <h3>Fair, honest pricing</h3>
+          <p>Premium home essentials without the premium markup — with free shipping over £25.</p>
+        </div>
+        <div class="value-item">
+          <span class="num">04</span>
+          <h3>Hassle-free returns</h3>
+          <p>Changed your mind? 30-day easy returns, no questions asked.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMO BANNER ============ -->
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <div class="banner" data-reveal>
+      <img id="bannerImg" src="" alt="" loading="lazy">
+      <div class="banner-content">
+        <span class="tag">LIMITED TIME</span>
+        <h2>Up to 65% off home refresh picks</h2>
+        <p>Upgrade your washroom, kitchen and living space for less — sale prices across the collection while stocks last.</p>
+        <a href="shop.html" class="btn btn-lime">Shop the sale <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="reviews" style="padding-top: 24px;">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="kicker">Reviews</span>
+        <h2>Real homes,<br>real love.</h2>
+      </div>
+    </div>
+    <div class="testi-grid stagger">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"The shower caddy and soap dispenser completely transformed my bathroom. Everything feels so much more organized — and the quality is honestly better than brands twice the price."</p>
+        <div class="who"><div class="ava">SM</div><div><b>Sarah M.</b><span>Verified buyer · Manchester</span></div></div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Ordered the galaxy projector and LED candles for my daughter's room. The delivery was fast and the products feel premium. She's obsessed. Will definitely shop here again."</p>
+        <div class="who"><div class="ava">JT</div><div><b>James T.</b><span>Verified buyer · London</span></div></div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Finally a store that gets it — practical things that actually look nice. The drying rack is sturdy, folds flat, and the wheels are a game-changer in my small flat."</p>
+        <div class="who"><div class="ava">AK</div><div><b>Amira K.</b><span>Verified buyer · Birmingham</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter" style="padding-top: 24px;">
+  <div class="wrap">
+    <div class="inner" data-reveal>
+      <h2>Get 10% off your first order</h2>
+      <p>Join the Homivy list for early access to new drops, sales, and home inspiration.</p>
+      <form class="news-form" onsubmit="event.preventDefault(); toast('Welcome to Homivy! Check your inbox ✨'); this.reset();">
+        <input type="email" placeholder="Your email address" required>
+        <button class="btn btn-primary" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer id="footer" class="site-footer"></footer>
+
+<div id="cartOverlay" class="cart-overlay"></div>
+<aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart"></aside>
+
+<script src="assets/products.js"></script>
+<script src="assets/app.js"></script>
+<script>
+function initPage() {
+  // hero visual — floating product cards
+  const decor = PRODUCTS.filter(p => p.category === "decor");
+  const [v1, v2, v3] = [decor[4] || decor[0], decor[2] || decor[1], decor[0]];
+  document.getElementById("heroVisual").innerHTML = `
+    <div class="hero-card c1"><img src="${v1.images[0]}" alt="${esc(v1.title)}"></div>
+    <div class="hero-card c2"><img src="${v2.images[0]}" alt="${esc(v2.title)}"></div>
+    <div class="hero-card c3"><img src="${v3.images[0]}" alt="${esc(v3.title)}"></div>
+    <div class="hero-chip h1">
+      <div class="ico">🚚</div>
+      <div>Free shipping<small>on orders over £25</small></div>
+    </div>
+    <div class="hero-chip h2">
+      <div class="ico">★</div>
+      <div>4.9 / 5 rating<small>from happy homes</small></div>
+    </div>`;
+
+  // marquee
+  const items = ["Free UK shipping over £25", "30-day easy returns", "New drops every month", "Up to 65% off sale picks", "Trusted by thousands of homes"];
+  const half = items.map(t => `<span>${t}</span>`).join("");
+  document.getElementById("marqueeTrack").innerHTML = half + half;
+
+  // category bento — representative image = first product of each category
+  const catImg = {
+    decor: PRODUCTS.find(p => p.handle.includes("ceramic-vase")),
+    washroom: PRODUCTS.find(p => p.handle.includes("shower-caddy")),
+    kitchen: PRODUCTS.find(p => p.handle.includes("red-wine-glass")),
+    household: PRODUCTS.find(p => p.handle.includes("sherpa")),
+  };
+  document.getElementById("categoryGrid").innerHTML =
+    ["decor", "washroom", "kitchen", "household"].map(c => {
+      const count = PRODUCTS.filter(p => p.category === c).length;
+      const img = (catImg[c] || PRODUCTS.find(p => p.category === c)).images[0];
+      return `<a class="cat-card" href="shop.html?cat=${c}">
+        <img src="${img}" alt="${CATEGORIES[c].name}" loading="lazy">
+        <div class="cat-info">
+          <div><h3>${CATEGORIES[c].name}</h3><small>${count} products · ${CATEGORIES[c].tagline}</small></div>
+          <span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+        </div>
+      </a>`;
+    }).join("");
+
+  // featured products — biggest discounts + decor highlights
+  const featured = [...PRODUCTS]
+    .sort((a, b) => ((b.compare ? b.compare - b.price : 0) - (a.compare ? a.compare - a.price : 0)))
+    .slice(0, 8);
+  document.getElementById("featuredGrid").innerHTML = featured.map(productCard).join("");
+
+  // banner image
+  const banner = byHandle("cqure-12pcs-84ft-artificial-ivy-garland-ivy-garland-fake-vines-uv-resistant-green-leaves-fake-plants-hanging-vines-for-wedding-party-garden-wall-room-decor") || PRODUCTS[0];
+  document.getElementById("bannerImg").src = banner.images[0];
+}
+</script>
+</body>
+</html>

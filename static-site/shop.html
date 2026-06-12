@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop All — Homivy</title>
+  <meta name="description" content="Shop Homivy's full collection of washroom, kitchen, decor and household essentials.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' fill='%231d4034'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%23c9f24f'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header id="header" class="site-header"></header>
+<div id="mobileMenu" class="mobile-menu"></div>
+
+<section class="page-hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <h1 id="pageTitle" data-reveal>Shop All</h1>
+    <p id="pageSub" data-reveal>Everything you need for a cleaner, more organized, and beautiful home.</p>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <div class="shop-toolbar" data-reveal>
+      <div class="filter-chips" id="chips"></div>
+      <div class="toolbar-right">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search products…" aria-label="Search products">
+        <select class="sort-select" id="sortSelect" aria-label="Sort products">
+          <option value="featured">Sort: Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="discount">Biggest Discount</option>
+          <option value="name">Name: A–Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="results-count" id="resultsCount"></div>
+    <div class="product-grid" id="shopGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="big">No products found</div>
+      <p>Try a different search or category.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="footer" class="site-footer"></footer>
+
+<div id="cartOverlay" class="cart-overlay"></div>
+<aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart"></aside>
+
+<script src="assets/products.js"></script>
+<script src="assets/app.js"></script>
+<script>
+let state = { cat: "all", q: "", sort: "featured" };
+
+function initPage() {
+  const params = new URLSearchParams(location.search);
+  if (params.get("cat") && CATEGORIES[params.get("cat")]) state.cat = params.get("cat");
+
+  const cats = ["all", "washroom", "kitchen", "decor", "household"];
+  document.getElementById("chips").innerHTML = cats.map(c =>
+    `<button class="chip ${state.cat === c ? "active" : ""}" data-cat="${c}">
+      ${c === "all" ? "All Products" : CATEGORIES[c].name}
+    </button>`).join("");
+
+  document.querySelectorAll(".chip").forEach(ch => ch.addEventListener("click", () => {
+    state.cat = ch.dataset.cat;
+    document.querySelectorAll(".chip").forEach(x => x.classList.toggle("active", x === ch));
+    const url = state.cat === "all" ? "shop.html" : `shop.html?cat=${state.cat}`;
+    history.replaceState(null, "", url);
+    updateHero();
+    renderGrid();
+  }));
+
+  document.getElementById("searchInput").addEventListener("input", (e) => {
+    state.q = e.target.value.toLowerCase().trim();
+    renderGrid();
+  });
+  document.getElementById("sortSelect").addEventListener("change", (e) => {
+    state.sort = e.target.value;
+    renderGrid();
+  });
+
+  updateHero();
+  renderGrid();
+}
+
+function updateHero() {
+  const t = document.getElementById("pageTitle");
+  const s = document.getElementById("pageSub");
+  if (state.cat === "all") {
+    t.textContent = "Shop All";
+    s.textContent = "Everything you need for a cleaner, more organized, and beautiful home.";
+  } else {
+    t.textContent = CATEGORIES[state.cat].name;
+    s.textContent = CATEGORIES[state.cat].tagline + ".";
+  }
+}
+
+function renderGrid() {
+  let list = PRODUCTS.filter(p => state.cat === "all" || p.category === state.cat);
+  if (state.q) list = list.filter(p =>
+    (p.title + " " + p.short + " " + p.tags.join(" ")).toLowerCase().includes(state.q));
+
+  const sorters = {
+    "price-asc": (a, b) => a.price - b.price,
+    "price-desc": (a, b) => b.price - a.price,
+    "discount": (a, b) => ((b.compare ? b.compare - b.price : 0) - (a.compare ? a.compare - a.price : 0)),
+    "name": (a, b) => a.title.localeCompare(b.title),
+  };
+  if (sorters[state.sort]) list = [...list].sort(sorters[state.sort]);
+
+  document.getElementById("resultsCount").textContent =
+    `${list.length} product${list.length === 1 ? "" : "s"}`;
+  document.getElementById("emptyState").style.display = list.length ? "none" : "block";
+
+  const grid = document.getElementById("shopGrid");
+  grid.innerHTML = list.map(productCard).join("");
+  grid.querySelectorAll(".p-card").forEach((card, i) => {
+    card.style.opacity = "0";
+    card.style.transform = "translateY(24px)";
+    setTimeout(() => {
+      card.style.transition = "opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)";
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
+      // clear inline styles so CSS hover effects take over
+      setTimeout(() => { card.style.cssText = ""; }, 650);
+    }, 40 + i * 50);
+  });
+}
+</script>
+</body>
+</html>

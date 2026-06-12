@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Homivy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' fill='%231d4034'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%23c9f24f'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header id="header" class="site-header"></header>
+<div id="mobileMenu" class="mobile-menu"></div>
+
+<section class="pdp">
+  <div class="wrap">
+    <nav class="breadcrumbs" id="crumbs" data-reveal></nav>
+    <div class="pdp-grid" id="pdpGrid"></div>
+  </div>
+</section>
+
+<section style="padding-top: 24px;">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="kicker">Keep exploring</span>
+        <h2>You may also like</h2>
+      </div>
+    </div>
+    <div class="product-grid stagger" id="relatedGrid"></div>
+  </div>
+</section>
+
+<footer id="footer" class="site-footer"></footer>
+
+<div id="cartOverlay" class="cart-overlay"></div>
+<aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart"></aside>
+
+<script src="assets/products.js"></script>
+<script src="assets/app.js"></script>
+<script>
+function initPage() {
+  const handle = new URLSearchParams(location.search).get("p");
+  const p = byHandle(handle) || PRODUCTS[0];
+  document.title = `${p.title} — Homivy`;
+  const save = p.compare ? Math.round((1 - p.price / p.compare) * 100) : 0;
+
+  document.getElementById("crumbs").innerHTML =
+    `<a href="index.html">Home</a> / <a href="shop.html?cat=${p.category}">${CATEGORIES[p.category].name}</a> / <span>${esc(p.title)}</span>`;
+
+  const featHtml = p.features.length
+    ? `<ul>${p.features.map(f => `<li><b>${esc(f.t)}</b>${f.d ? " — " + esc(f.d) : ""}</li>`).join("")}</ul>`
+    : `<p>${esc(p.short)}</p>`;
+
+  document.getElementById("pdpGrid").innerHTML = `
+    <div data-reveal="left">
+      <div class="gallery-main">
+        ${p.compare ? `<span class="sale-badge">−${save}%</span>` : ""}
+        <img id="mainImg" src="${p.images[0]}" alt="${esc(p.fullTitle)}">
+      </div>
+      ${p.images.length > 1 ? `<div class="gallery-thumbs">${p.images.map((src, i) =>
+        `<button class="${i === 0 ? "active" : ""}" data-i="${i}"><img src="${src}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}
+    </div>
+    <div class="pdp-info" data-reveal="right">
+      <span class="p-cat">${CATEGORIES[p.category].name}</span>
+      <h1>${esc(p.fullTitle)}</h1>
+      <div class="pdp-rating"><span class="stars">★★★★★</span> 4.9 · Loved by Homivy customers</div>
+      <div class="pdp-price-row">
+        <span class="pdp-price">${money(p.price)}</span>
+        ${p.compare ? `<span class="pdp-compare">${money(p.compare)}</span><span class="p-save">Save ${save}%</span>` : ""}
+      </div>
+      <p class="pdp-short">${esc(p.short)}</p>
+      <div class="buy-row">
+        <div class="qty">
+          <button onclick="bumpQty(-1)" aria-label="Decrease quantity">−</button>
+          <input id="qtyInput" value="1" inputmode="numeric" aria-label="Quantity">
+          <button onclick="bumpQty(1)" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="btn btn-primary add-to-cart" onclick="addCurrent()">Add to cart <span class="arr">→</span></button>
+      </div>
+      <div class="trust-row">
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12l4 4L19 6"/></svg> Free shipping over £25</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg> 30-day returns</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg> Quality tested</span>
+      </div>
+      <div class="accordion">
+        <div class="acc-item open">
+          <button class="acc-head" onclick="toggleAcc(this)">Features & benefits <span class="ic">＋</span></button>
+          <div class="acc-body"><div class="acc-body-inner">${featHtml}</div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" onclick="toggleAcc(this)">Shipping & returns <span class="ic">＋</span></button>
+          <div class="acc-body"><div class="acc-body-inner">
+            <p>Orders are dispatched within 48 hours. Free UK shipping on orders over £25 — standard delivery £3.49 otherwise. Not in love with it? Return it within 30 days for a full refund, no questions asked.</p>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" onclick="toggleAcc(this)">Why Homivy <span class="ic">＋</span></button>
+          <div class="acc-body"><div class="acc-body-inner">
+            <p>Homivy is a home essentials store that helps you create a cleaner, more organized, and beautiful home. Every product is hand-picked, quality tested, and fairly priced.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>`;
+
+  // gallery
+  document.querySelectorAll(".gallery-thumbs button").forEach(btn =>
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".gallery-thumbs button").forEach(b => b.classList.toggle("active", b === btn));
+      const img = document.getElementById("mainImg");
+      img.style.animation = "none"; void img.offsetWidth; img.style.animation = "";
+      img.src = p.images[+btn.dataset.i];
+    }));
+
+  // open the first accordion
+  document.querySelectorAll(".acc-item.open .acc-body").forEach(b => { b.style.maxHeight = b.scrollHeight + "px"; });
+
+  window.addCurrent = () => {
+    const q = Math.max(1, parseInt(document.getElementById("qtyInput").value) || 1);
+    addToCart(p.handle, q);
+  };
+  window.bumpQty = (d) => {
+    const inp = document.getElementById("qtyInput");
+    inp.value = Math.max(1, (parseInt(inp.value) || 1) + d);
+  };
+
+  // related products — same category first, then others
+  const related = [
+    ...PRODUCTS.filter(x => x.category === p.category && x.handle !== p.handle),
+    ...PRODUCTS.filter(x => x.category !== p.category),
+  ].slice(0, 4);
+  document.getElementById("relatedGrid").innerHTML = related.map(productCard).join("");
+}
+
+function toggleAcc(head) {
+  const item = head.parentElement;
+  const body = item.querySelector(".acc-body");
+  const isOpen = item.classList.contains("open");
+  document.querySelectorAll(".acc-item.open").forEach(o => {
+    o.classList.remove("open");
+    o.querySelector(".acc-body").style.maxHeight = "0";
+  });
+  if (!isOpen) {
+    item.classList.add("open");
+    body.style.maxHeight = body.scrollHeight + "px";
+  }
+}
+</script>
+</body>
+</html>
